@@ -1,13 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+require('dotenv').config()
 const UserModel = require('./models/Users')
-
+const PORT = process.env.PORT || 3003
+const mongoURI = process.env.MONGO_URI
 const app = express();
 app.use(cors())
 app.use(express.json())
 
-mongoose.connect("mongodb://127.0.0.1:27017/crud")
+mongoose.connect(mongoURI)
 .then(() => console.log("MongoDB connected successfully"))
 .catch(err => console.log("MongoDB connection error:", err));
 
@@ -51,6 +53,6 @@ app.post("/createUser", (req,res) => {
 
 
 
-app.listen(3001,() =>{
+app.listen(PORT,() =>{
     console.log("server is up n ready")
 })
